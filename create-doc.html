@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Documentos - Crear Documento</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestión de Documentos</h1>
+    </header>
+
+    <!-- Formulario de Creación de Documento -->
+    <div id="create-doc-form" class="view">
+        <h2>Añadir Nuevo Documento</h2>
+        <form id="create-document-form">
+            <input type="text" id="document-name" placeholder="Nombre del documento" required>
+            <input type="file" id="document-file" required>
+            <button type="submit">Crear Documento</button>
+            <button type="button" onclick="cancelCreate()">Cancelar</button>
+        </form>
+    </div>
+
+    <script>
+        // Verifica si el usuario está logueado
+        const user = JSON.parse(sessionStorage.getItem('loggedUser'));
+        if (!user) {
+            window.location.href = "index.html";
+        }
+
+        document.getElementById("create-document-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const documentName = document.getElementById("document-name").value;
+            const documentFile = document.getElementById("document-file").files[0];
+
+            if (!documentFile) {
+                alert("Por favor, selecciona un archivo.");
+                return;
+            }
+
+            // Simulación de la lógica de guardar documento (puedes cambiar esto luego por backend real)
+            const offices = JSON.parse(sessionStorage.getItem('offices')) || [];
+
+            // Aquí se asume que el usuario pertenece a la primera oficina
+            const office = offices[0] || { name: "Oficina A", documents: [], sharedDocuments: [] };
+
+            const newDocument = {
+                id: Date.now(),
+                name: documentName,
+                file: documentFile.name // solo se guarda el nombre como simulación
+            };
+
+            office.documents.push(newDocument);
+            offices[0] = office;
+
+            sessionStorage.setItem('offices', JSON.stringify(offices));
+
+            alert("Documento creado exitosamente.");
+            window.location.href = "dashboard.html";
+        });
+
+        function cancelCreate() {
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</body>
+</html>
