@@ -28,9 +28,8 @@ if (registerForm) {
         const username = document.getElementById("new-username").value;
         const password = document.getElementById("new-password").value;
 
-        // Verificar duplicado
-        const exists = users.find(u => u.username === username);
-        if (exists) {
+        // Verificar si el usuario ya existe
+        if (users.some(u => u.username === username)) {
             alert("Este usuario ya existe.");
             return;
         }
@@ -55,4 +54,5 @@ function login(username, password) {
         alert("Credenciales incorrectas.");
     }
 }
+
 

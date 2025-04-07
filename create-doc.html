@@ -4,19 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión de Documentos - Crear Documento</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        #create-doc-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #create-doc-form h2 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #create-document-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        #create-document-form input[type="text"],
+        #create-document-form input[type="file"],
+        #create-document-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        #create-document-form button[type="submit"],
+        #create-document-form button[type="button"] {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #create-document-form button[type="button"] {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+
+        #create-document-form button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        #create-document-form button[type="button"]:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Sistema de Gestión de Documentos</h1>
     </header>
 
-    <!-- Formulario de Creación de Documento -->
     <div id="create-doc-form" class="view">
         <h2>Añadir Nuevo Documento</h2>
         <form id="create-document-form">
+            <label for="document-name">Nombre del Documento:</label>
             <input type="text" id="document-name" placeholder="Nombre del documento" required>
+
+            <label for="document-file">Seleccionar Archivo:</label>
             <input type="file" id="document-file" required>
+
+            <label for="document-category">Seleccionar Categoría:</label>
+            <select id="document-category" required>
+                <option value="internal">Mis Documentos Internos</option>
+                <option value="external">Documentos Externos</option>
+                <option value="shared">Documentos Compartidos</option>
+            </select>
+
             <button type="submit">Crear Documento</button>
             <button type="button" onclick="cancelCreate()">Cancelar</button>
         </form>
@@ -34,28 +130,43 @@
 
             const documentName = document.getElementById("document-name").value;
             const documentFile = document.getElementById("document-file").files[0];
+            const documentCategory = document.getElementById("document-category").value;
 
             if (!documentFile) {
                 alert("Por favor, selecciona un archivo.");
                 return;
             }
 
-            // Simulación de la lógica de guardar documento (puedes cambiar esto luego por backend real)
             const offices = JSON.parse(sessionStorage.getItem('offices')) || [];
 
             // Aquí se asume que el usuario pertenece a la primera oficina
-            const office = offices[0] || { name: "Oficina A", documents: [], sharedDocuments: [] };
+            const office = offices[0] || { name: "Oficina A", documents: [], externalDocuments: [], sharedDocuments: [] };
 
+            // Creamos el nuevo documento
             const newDocument = {
                 id: Date.now(),
                 name: documentName,
                 file: documentFile.name // solo se guarda el nombre como simulación
             };
 
-            office.documents.push(newDocument);
-            offices[0] = office;
+            // Según la categoría seleccionada, añadimos el documento a la lista correspondiente
+            if (documentCategory === 'internal') {
+                office.documents.push(newDocument);
+            } else if (documentCategory === 'external') {
+                office.externalDocuments.push(newDocument);
+            } else if (documentCategory === 'shared') {
+                office.sharedDocuments.push(newDocument);
+            }
+
+            // Si no existía una oficina, la agregamos al array
+            if (!offices[0]) {
+                offices.push(office);
+            } else {
+                offices[0] = office; // Guardamos los cambios en la primera oficina
+            }
 
             sessionStorage.setItem('offices', JSON.stringify(offices));
+            console.log("Documento creado y oficinas actualizadas:", offices); // Para depuración
 
             alert("Documento creado exitosamente.");
             window.location.href = "dashboard.html";

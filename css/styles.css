@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* ============ ESTILOS GENERALES ============ */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6;
@@ -12,7 +12,7 @@ h2, h3 {
     font-weight: 600;
 }
 
-/* Vista principal */
+/* ============ VISTA PRINCIPAL ============ */
 .view {
     max-width: 800px;
     margin: 50px auto;
@@ -28,7 +28,7 @@ h2, h3 {
     opacity: 0.95;
 }
 
-/* Formulario de inicio de sesión, registro y creación de documentos */
+/* ============ FORMULARIOS ============ */
 form {
     display: flex;
     flex-direction: column;
@@ -53,7 +53,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
     outline: none;
 }
 
-/* Botones */
+/* ============ BOTONES GENERALES ============ */
 button {
     width: 100%;
     padding: 15px;
@@ -72,43 +72,7 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* Enlaces */
-a {
-    color: #4CAF50;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #388e3c;
-    text-decoration: underline;
-}
-
-/* Barra de navegación */
-header {
-    background-color: #2c3e50;
-    padding: 20px;
-    color: #fff;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 0 0 12px 12px;
-}
-
-header a {
-    color: #fff;
-    text-decoration: none;
-}
-
-/* Vistas de usuario */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px;
-}
-
+/* Botón cerrar sesión */
 .logout-btn {
     background-color: #e74c3c;
     color: white;
@@ -124,7 +88,121 @@ header a {
     background-color: #c0392b;
 }
 
-/* Vista de creación de documentos */
+/* Botones extra */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.button-link {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+    background-color: #218838;
+}
+
+/* ============ ENLACES ============ */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #388e3c;
+    text-decoration: underline;
+}
+
+/* ============ BARRA DE NAVEGACIÓN ============ */
+header {
+    background-color: #2c3e50;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 0 0 12px 12px;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ============ CONTENEDORES Y SECCIONES ============ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+}
+
+.section {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.section-header:hover {
+    background-color: #0056b3;
+}
+
+.section-body {
+    padding: 20px;
+    background-color: #f9f9f9;
+    display: none;
+    font-size: 1rem;
+}
+
+.section-body ul {
+    list-style: none;
+    padding: 0;
+}
+
+.section-body li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.section-body li:hover {
+    background-color: #f1f1f1;
+}
+
+.document-name {
+    font-weight: 600;
+}
+
+/* ============ FORMULARIO DE CREACIÓN DE DOCUMENTOS ============ */
 #create-doc-form {
     padding: 30px;
     max-width: 600px;
@@ -137,4 +215,20 @@ header a {
 
 #create-doc-form button:hover {
     background-color: #218838;
+}
+
+/* ============ NOTIFICACIONES ============ */
+.notification {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffdd57;
+    color: #333;
+    border-radius: 5px;
+    display: none;
+    font-size: 1rem;
+}
+
+/* ============ UTILIDADES ============ */
+.hidden {
+    display: none;
 }
